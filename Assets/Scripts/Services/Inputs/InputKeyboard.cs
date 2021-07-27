@@ -11,17 +11,33 @@ namespace Services.Inputs
         
         public Vector2 AxisMove => new Vector2(Input.GetAxis(HorizontalAxis), Input.GetAxis(VerticalAxis));
         public event UnityAction<bool> ChangeMove;
+        public event UnityAction InventoryButton;
         public event UnityAction Intractable;
 
         private bool isMove = false;
         
         public void Update()
         {
+            ChangeMoveEvent();
+            IntractableEvent();
+            InventoryEvent();
+        }
+
+        private void ChangeMoveEvent()
+        {
             float magnitude = AxisMove.magnitude;
             if (magnitude > 0.1f && !isMove) ChangeMove?.Invoke(isMove = true);
-            else if(magnitude < 0.1f && isMove) ChangeMove?.Invoke(isMove = false);
-            
-            if(Input.GetKeyDown(KeyCode.E)) Intractable?.Invoke();
+            else if (magnitude < 0.1f && isMove) ChangeMove?.Invoke(isMove = false);
+        }
+
+        private void IntractableEvent()
+        {
+            if (Input.GetKeyDown(KeyCode.E)) Intractable?.Invoke();
+        }
+
+        private void InventoryEvent()
+        {
+            if (Input.GetKeyDown(KeyCode.I)) InventoryButton?.Invoke();
         }
     }
 }

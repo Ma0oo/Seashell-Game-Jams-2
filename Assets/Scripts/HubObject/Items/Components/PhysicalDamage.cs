@@ -13,6 +13,9 @@ namespace HubObject.Items.Components
 
         private void Awake() => _item.BloodSystem.Track<HitedSomeActor>(OnHitedSomeActor);
 
-        private void OnHitedSomeActor(HitedSomeActor @event) => @event.HitedActor.BloodSystem.Fire(new Damaged(_damageValue));
+        private void OnHitedSomeActor(HitedSomeActor @event)
+        {
+            @event.HitedActor.BloodSystem.Fire(new Damaged(_damageValue));
+        }
     }
 }

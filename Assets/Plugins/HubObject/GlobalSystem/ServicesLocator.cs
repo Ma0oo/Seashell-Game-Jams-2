@@ -1,5 +1,9 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
+using UnityEngine;
+using Object = System.Object;
 
 namespace Plugins.HubObject.GlobalSystem
 {
@@ -24,6 +28,22 @@ namespace Plugins.HubObject.GlobalSystem
         {
             _dictionaryTransit = new Dictionary<Type, Dictionary<string, object>>();
             _dictionarySingle = new Dictionary<Type, Dictionary<string, object>>();
+        }
+
+        public void RemoveSingel<T>(string id = "") where T : class
+        {
+            if (_dictionarySingle.ContainsKey(typeof(T)))
+                _dictionarySingle[typeof(T)].Remove(id);
+            if (_dictionarySingle.Count == 0)
+                _dictionarySingle.Remove(typeof(T));
+        }
+        
+        public void RemoveTransit<T>(string id = "") where T : class
+        {
+            if (_dictionaryTransit.ContainsKey(typeof(T)))
+                _dictionaryTransit[typeof(T)].Remove(id);
+            if (_dictionaryTransit.Count == 0)
+                _dictionaryTransit.Remove(typeof(T));
         }
 
         /// <summary>
@@ -61,7 +81,6 @@ namespace Plugins.HubObject.GlobalSystem
             if (_dictionaryTransit.ContainsKey(typeof(T)))
             {
                 _dictionaryTransit[typeof(T)].Add(id, transitMethod);
-
             }
             else
             {
@@ -84,6 +103,17 @@ namespace Plugins.HubObject.GlobalSystem
                 throw new Exception($"The container does not contain under this ID - Type: {typeof(T)} \\ Id: '{id}'");
 
             return _dictionarySingle[typeof(T)][id] as T;
+        }
+        
+        public object ResolveSingle(Type type, string id = "")
+        {
+            if (!_dictionarySingle.ContainsKey(type))
+                throw new Exception($"DI container does not contain this type  - Type: {type}");
+
+            if (!_dictionarySingle[type].ContainsKey(id))
+                throw new Exception($"The container does not contain under this ID - Type: {type} \\ Id: '{id}'");
+
+            return _dictionarySingle[type][id];
         }
 
         /// <summary>
@@ -109,6 +139,40 @@ namespace Plugins.HubObject.GlobalSystem
             {
                 _dictionarySingle.Add(typeof(T), new Dictionary<string, object>());
                 _dictionarySingle[typeof(T)].Add(id, instance);
+            }
+        }
+
+        public void InjectSingle(GameObject gameObject)
+        {
+            foreach (var monoBeh in gameObject.GetComponentsInChildren<MonoBehaviour>(true)) InjectSingle(monoBeh);
+        }
+        
+        public void InjectSingle(Object obj)
+        {
+            var listFeild = obj.GetType().
+                GetFields(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance).
+                Where(x => x.GetCustomAttribute<DI>() != null);
+            foreach (var field in listFeild)
+            {
+                var att = field.GetCustomAttribute<DI>();
+                field.SetValue(obj, ResolveSingle(field.FieldType, att.Id));
+            }
+            
+            var listProperty = obj.GetType().
+                GetProperties(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance).
+                Where(x => x.GetCustomAttribute<DI>() != null);
+            foreach (var prop in listProperty)
+            {
+                var att = prop.GetCustomAttribute<DI>();
+                prop.SetValue(obj, ResolveSingle(prop.PropertyType, att.Id));
+            }
+
+            var listMethodInfo = obj.GetType().GetMethods(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly);
+            if (listMethodInfo.Length > 0)
+            {
+                var methodInit = listMethodInfo.Where(x => x.GetCustomAttribute<DIC>() != null);
+                if(methodInit.Count() > 0)
+                    methodInit.First().Invoke(obj, new object[0]);
             }
         }
     }

@@ -60,7 +60,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5bc790e97dd24f46bbff4404c8da8ef7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _triggerPickUpItem: {fileID: 337720825}
+  _triggerPickUpItem: {fileID: 2033314719}
   _actor: {fileID: 2181801036270737136}
 --- !u!114 &1568281275
 MonoBehaviour:
@@ -127,8 +127,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 337720823}
-  - component: {fileID: 337720825}
   - component: {fileID: 337720824}
+  - component: {fileID: 2033314719}
   m_Layer: 0
   m_Name: TriggerPickUpItem
   m_TagString: Untagged
@@ -150,19 +150,6 @@ Transform:
   m_Father: {fileID: 2181801036270737139}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &337720825
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 337720822}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 285b5ce71caa48a986b36451c39a24cd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _collider2D: {fileID: 337720824}
 --- !u!58 &337720824
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -179,6 +166,19 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 1.25
+--- !u!114 &2033314719
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 337720822}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: beda8fe40b55495bb38c6b0b3311746d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _collider2D: {fileID: 337720824}
 --- !u!1 &974192398
 GameObject:
   m_ObjectHideFlags: 0
@@ -192,6 +192,7 @@ GameObject:
   - component: {fileID: 5451140938484376674}
   - component: {fileID: 5095979419663852220}
   - component: {fileID: 2833713497741572013}
+  - component: {fileID: 974192404}
   m_Layer: 0
   m_Name: OtherComponent
   m_TagString: Untagged
@@ -269,6 +270,70 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _actor: {fileID: 2181801036270737136}
   _healthAbs: {fileID: 5451140938484376674}
+--- !u!114 &974192404
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 974192398}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d18c7c83868046b78c39d9b442497ef2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _actor: {fileID: 2181801036270737136}
+  _onDead:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2181801035934646492}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 14972622}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 974192398}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 2181801036270737142}
+        m_TargetAssemblyTypeName: UnityEngine.Rigidbody2D, UnityEngine
+        m_MethodName: set_simulated
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &2181801035934646492
 GameObject:
   m_ObjectHideFlags: 0
@@ -280,7 +345,6 @@ GameObject:
   - component: {fileID: 2181801035934646482}
   - component: {fileID: 2181801035934646483}
   - component: {fileID: 2181801035934646481}
-  - component: {fileID: 2181801035934646480}
   m_Layer: 0
   m_Name: MoveComponent
   m_TagString: Untagged
@@ -330,21 +394,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _acseleration: 25
   _actor: {fileID: 2181801036270737136}
---- !u!114 &2181801035934646480
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2181801035934646492}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: de4ee6a99c7f43e6895f4ed84c371c05, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _animator: {fileID: 2181801036270737149}
-  _spriteRenderer: {fileID: 2181801036270737148}
-  _rigidbody2D: {fileID: 2181801036270737142}
 --- !u!1 &2181801035953612601
 GameObject:
   m_ObjectHideFlags: 0
@@ -618,6 +667,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2181801037215552704}
+  - component: {fileID: 8460350788370992010}
   m_Layer: 0
   m_Name: DinamicComponent
   m_TagString: Untagged
@@ -639,3 +689,19 @@ Transform:
   m_Father: {fileID: 2181801036270737139}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8460350788370992010
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2181801037215552705}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de4ee6a99c7f43e6895f4ed84c371c05, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _actor: {fileID: 2181801036270737136}
+  _animator: {fileID: 2181801036270737149}
+  _spriteRenderer: {fileID: 2181801036270737148}
+  _rigidbody2D: {fileID: 2181801036270737142}

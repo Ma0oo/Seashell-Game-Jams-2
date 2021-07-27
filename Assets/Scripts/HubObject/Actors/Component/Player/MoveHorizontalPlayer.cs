@@ -1,4 +1,5 @@
 ﻿using System;
+using HubObject.Actors.Signals;
 using Plugins.HubObject.GlobalSystem;
 using Services.Interfaces;
 using UnityEngine;

@@ -7,6 +7,7 @@ namespace Services.Interfaces
     {
         Vector2 AxisMove { get; }
         event UnityAction<bool> ChangeMove;
+        event UnityAction InventoryButton;
         event UnityAction Intractable;
         void Update();
     }

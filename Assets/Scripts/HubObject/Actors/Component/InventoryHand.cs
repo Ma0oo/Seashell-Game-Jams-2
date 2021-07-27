@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using HubObject.Actors.Component.Interfaces;
 using HubObject.Actors.Signals;
 using HubObject.Items.Signals;
@@ -11,7 +12,11 @@ namespace HubObject.Actors.Component
         [SerializeField] private Actor _actor;
         
         private Item _currentItem;
-        
+
+        private void Awake() => _actor.BloodSystem.Track<ActorDeaded>(OnDeadActor);
+
+        private void OnDeadActor(ActorDeaded obj) => TryRemove(_currentItem);
+
         public bool TryAdd(Item item)
         {
             if (_currentItem == null)
@@ -27,7 +32,7 @@ namespace HubObject.Actors.Component
 
         public bool TryRemove(Item item)
         {
-            if (_currentItem == item)
+            if (_currentItem == item && item != null)
             {
                 _currentItem = null;
                 _actor.BloodSystem.Fire(new InventoryUpdate(new List<Item>(){}, this.GetType()));
