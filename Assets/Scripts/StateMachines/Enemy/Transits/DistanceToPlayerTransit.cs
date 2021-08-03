@@ -1,6 +1,6 @@
 ﻿using System;
-using HubObject;
-using Plugins.HubObject.GlobalSystem;
+using HabObjects;
+using Plugins.HabObject.DIContainer;
 using UnityEngine;
 
 namespace StateMachines.Enemy.Transits
@@ -18,7 +18,7 @@ namespace StateMachines.Enemy.Transits
         
         private Actor _player;
         
-        private void Awake() => _player = ServicesLocator.MainContainer.ResolveSingle<Actor>(BootStrapGameScene.PlayerId);
+        private void Awake() => _player = DiServices.MainContainer.ResolveSingle<Actor>(BootStrapGameScene.PlayerId);
 
         public override bool CanTransit()
         {

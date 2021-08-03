@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections;
-using Plugins.HubObject.GlobalSystem;
+using Plugins.HabObject.DIContainer;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 

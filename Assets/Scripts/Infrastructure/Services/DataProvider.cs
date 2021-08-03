@@ -2,7 +2,7 @@
 using System.IO;
 using Infrastructure.Data;
 using Newtonsoft.Json;
-using Plugins.HubObject.GlobalSystem;
+using Plugins.HabObject.DIContainer;
 using UnityEngine;
 
 namespace Infrastructure.Services

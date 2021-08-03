@@ -1,5 +1,5 @@
 ﻿using System;
-using HubObject.Actors.Component.Enemy;
+using HabObjects.Actors.Component.Enemy;
 using UnityEngine;
 
 namespace StateMachines.Enemy.States

@@ -1,6 +1,0 @@
-{
-  "Master": 0.221319318,
-  "Music": 0.31369254,
-  "Effect": 0.3350096,
-  "Name": "SoundData"
-}

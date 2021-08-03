@@ -1,8 +1,10 @@
 ﻿using Infrastructure.Configs;
 using Infrastructure.GameStateMachines.Interfaces;
-using Infrastructure.Scenes.MainMenuPart.Mono;
-using Infrastructure.Scenes.MainMenuPart.Signals;
-using Plugins.HubObject.GlobalSystem;
+using Infrastructure.ScenesServices.MainMenuPart;
+using Infrastructure.ScenesServices.MainMenuPart.Signals;
+using Mechanics;
+using Plugins.HabObject.DIContainer;
+using Plugins.HabObject.GlobalSystem;
 using UnityEngine;
 
 namespace Infrastructure.GameStateMachines.States
@@ -13,15 +15,16 @@ namespace Infrastructure.GameStateMachines.States
         
         [DI] private SceneLoader _sceneLoader;
         [DI] private SceneSetConfig _scenes;
+        [DI] private Curtain _curtain;
 
-        private ServicesLocator _mianServices = ServicesLocator.MainContainer;
+        private DiServices _mianDiServices = DiServices.MainContainer;
         private EventChanel _chanelMainMenu = new EventChanel();
 
         public void Enter()
         {
             RegisterSignal();
             RegisterDI(new TransiterDataForUnity(),  new ChangerStateMainMenu());
-            _sceneLoader.Load(_scenes.MainMenu, () => { });
+            _sceneLoader.Load(_scenes.MainMenu, () => _curtain.Unfade());
         }
 
         public void Exit()
@@ -38,8 +41,9 @@ namespace Infrastructure.GameStateMachines.States
 
         private void UnRegisterDi()
         {
-            _mianServices.RemoveSingel<TransiterDataForUnity>();
-            _mianServices.RemoveSingel<ChangerStateMainMenu>();
+            _mianDiServices.RemoveSingel<TransiterDataForUnity>();
+            _mianDiServices.RemoveSingel<ChangerStateMainMenu>();
+            _mianDiServices.RemoveSingel<EventChanel>(EventChanelId);
         }
 
         private void RegisterSignal()
@@ -50,12 +54,12 @@ namespace Infrastructure.GameStateMachines.States
 
         private void RegisterDI(TransiterDataForUnity transitDataForUnity, ChangerStateMainMenu changerStateMainMenu)
         {
-            _mianServices.RegisterSingle(_chanelMainMenu, EventChanelId);
-            _mianServices.RegisterSingle(transitDataForUnity);
-            _mianServices.RegisterSingle(changerStateMainMenu);
+            _mianDiServices.RegisterSingle(_chanelMainMenu, EventChanelId);
+            _mianDiServices.RegisterSingle(transitDataForUnity);
+            _mianDiServices.RegisterSingle(changerStateMainMenu);
             
-            _mianServices.InjectSingle(transitDataForUnity);            
-            _mianServices.InjectSingle(changerStateMainMenu);
+            _mianDiServices.InjectSingle(transitDataForUnity);            
+            _mianDiServices.InjectSingle(changerStateMainMenu);
         }
     }
 }

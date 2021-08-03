@@ -1,0 +1,13 @@
+{
+  "PathPrefabPlayer": "PlayerActor",
+  "Force": 8,
+  "Agility": 3,
+  "Charisma": 2,
+  "Magic": 0,
+  "Money": 100,
+  "Class": 1,
+  "PathItemsPrefab": [],
+  "Health": 20.0,
+  "HealthMax": 20.0,
+  "Name": "DataPlayer"
+}

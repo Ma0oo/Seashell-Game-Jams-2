@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Infrastructure.GameStateMachines.Interfaces;
-using Plugins.HubObject.GlobalSystem;
+using Plugins.HabObject.DIContainer;
 
 namespace Infrastructure.GameStateMachines
 {
@@ -36,7 +36,7 @@ namespace Infrastructure.GameStateMachines
             else
             {
                 T createdState = new T();
-                ServicesLocator.MainContainer.InjectSingle(createdState);
+                DiServices.MainContainer.InjectSingle(createdState);
                 _dictStates.Add(typeof(T), createdState);
                 return _dictStates[typeof(T)] as T;
             }

@@ -12,6 +12,7 @@ namespace Services.Inputs
         public Vector2 AxisMove => new Vector2(Input.GetAxis(HorizontalAxis), Input.GetAxis(VerticalAxis));
         public event UnityAction<bool> ChangeMove;
         public event UnityAction InventoryButton;
+        public event UnityAction MenuButtonClick;
         public event UnityAction Intractable;
 
         private bool isMove = false;
@@ -21,6 +22,13 @@ namespace Services.Inputs
             ChangeMoveEvent();
             IntractableEvent();
             InventoryEvent();
+            MenuEvent();
+        }
+
+        private void MenuEvent()
+        {
+            if (Input.GetKeyDown(KeyCode.Escape))
+                MenuButtonClick?.Invoke();
         }
 
         private void ChangeMoveEvent()

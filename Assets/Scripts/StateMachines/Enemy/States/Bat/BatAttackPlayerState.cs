@@ -1,4 +1,4 @@
-﻿using HubObject.Actors.Component.Enemy.Bat;
+﻿using HabObjects.Actors.Component.Enemy.Bat;
 using UnityEngine;
 
 namespace StateMachines.Enemy.States.Bat

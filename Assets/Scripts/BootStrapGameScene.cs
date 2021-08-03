@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections;
-using HubObject;
-using Plugins.HubObject.GlobalSystem;
+using HabObjects;
+using Plugins.HabObject.DIContainer;
 using Services.Inputs;
 using Services.Interfaces;
 using UnityEngine;
@@ -18,11 +18,11 @@ public class BootStrapGameScene : MonoBehaviour
     
     private void Awake()
     {
-        ServicesLocator.MainContainer.RegisterSingle<IInput>(new InputKeyboard());
-        StartCoroutine(UpdateInput(ServicesLocator.MainContainer.ResolveSingle<IInput>()));
-        ServicesLocator.MainContainer.RegisterSingle<Canvas>(_canvasWithInventoryUi, CanvasInventoryUi);
-        ServicesLocator.MainContainer.RegisterSingle<Actor>(_player, PlayerId);
-        ServicesLocator.MainContainer.RegisterSingle<Transform>(_parentRoom, ParentRoomId);
+        DiServices.MainContainer.RegisterSingle<IInput>(new InputKeyboard());
+        StartCoroutine(UpdateInput(DiServices.MainContainer.ResolveSingle<IInput>()));
+        DiServices.MainContainer.RegisterSingle<Canvas>(_canvasWithInventoryUi, CanvasInventoryUi);
+        DiServices.MainContainer.RegisterSingle<Actor>(_player, PlayerId);
+        DiServices.MainContainer.RegisterSingle<Transform>(_parentRoom, ParentRoomId);
     }
 
     private IEnumerator UpdateInput(IInput inputForUpdate)
