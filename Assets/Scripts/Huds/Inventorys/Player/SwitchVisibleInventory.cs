@@ -10,11 +10,11 @@ namespace Huds.Inventorys.Player
         
         private IInput _input;
 
-        private void Awake() => _input = DiServices.MainContainer.ResolveSingle<IInput>();
-
-        private void OnEnable() => _input.InventoryButton += OnClickInventoryButton;
-
-        private void OnDisable() => _input.InventoryButton -= OnClickInventoryButton;
+        private void Awake()
+        {
+            _input = DiServices.MainContainer.ResolveSingle<IInput>();
+            _input.InventoryButton += OnClickInventoryButton;
+        }
 
         private void Start() => ChangeVisible(false);
 
@@ -24,6 +24,7 @@ namespace Huds.Inventorys.Player
         {
             _canvasGroup.interactable = state;
             _canvasGroup.alpha = ConvertToFloat(state);
+            gameObject.SetActive(state);
         }
 
         private static float ConvertToFloat(bool canvasGroupInteractable) => canvasGroupInteractable ? 1 : 0;

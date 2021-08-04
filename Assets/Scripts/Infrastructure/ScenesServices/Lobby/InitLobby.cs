@@ -29,7 +29,7 @@ namespace Infrastructure.ScenesServices.Lobby
         private void Awake()
         {
             Actor player;
-            if (!_playerFactory.TryCreate(out player, _position.position))
+            if (!_playerFactory.TryCreate(out player, new Vector3(100,100,0)))
             {
                 ChoiseClassHud hudClass = (ChoiseClassHud)_hudFactory.Crete<ChoiseClassHud>();
                 _dataPlayerCreator.DataCreated += OnCreatedDataPlayer;

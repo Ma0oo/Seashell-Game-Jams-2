@@ -14,8 +14,16 @@ namespace Services.Inputs
         public event UnityAction InventoryButton;
         public event UnityAction MenuButtonClick;
         public event UnityAction Intractable;
+        public event UnityAction MainAttackClick;
+        public event UnityAction MainAttackHold;
+        public event UnityAction MainAttackUnclick;
 
         private bool isMove = false;
+
+        public InputKeyboard()
+        {
+            
+        }
         
         public void Update()
         {
@@ -23,6 +31,17 @@ namespace Services.Inputs
             IntractableEvent();
             InventoryEvent();
             MenuEvent();
+            MainAttackClickEvents();
+        }
+
+        private void MainAttackClickEvents()
+        {
+            if(Input.GetKeyDown(KeyCode.Mouse0))
+                MainAttackClick?.Invoke();
+            if(Input.GetKey(KeyCode.Mouse0))
+                MainAttackHold?.Invoke();
+            if(Input.GetKeyUp(KeyCode.Mouse0))
+                MainAttackUnclick?.Invoke();
         }
 
         private void MenuEvent()

@@ -33828,6 +33828,18 @@ MonoBehaviour:
     PathToActor: PlayerActor
     ItemsPath:
     - Items/Sword
+  - Class: 0
+    PrefabActor: {fileID: 2181801036270737136, guid: 05e3a220d2388e94ca52e0e208b4e3f3, type: 3}
+    PathToActor: PlayerArch
+    ItemsPath:
+    - Items/Bow
+    - Items/Arror
+    - Items/Arror
+    - Items/Arror
+    - Items/Arror
+    - Items/Arror
+    - Items/Arror
+    - Items/Arror
 --- !u!114 &1313132292
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -9,9 +9,10 @@ namespace Plugins.HabObject.Property
     public abstract class PropertyDictionaryContainer<TMain> : MonoBehaviour where TMain : DataProperty
     {
         [SerializeField] private GameObject _objectForData;
-        protected Dictionary<Type, TMain> _propDict = new Dictionary<Type, TMain>();
+        protected Dictionary<Type, TMain> _propDict;
 
-        private void Awake() => MoveToDictFromObject();
+        private void Awake() => InitDicIfNotExit();
+
 
         public void Add<T>(T instance) where T : TMain
         {
@@ -57,8 +58,12 @@ namespace Plugins.HabObject.Property
             else return null;
         }
 
-        public bool Has<T>() where T : TMain => _propDict.ContainsKey(typeof(T));
-        
+        public bool Has<T>() where T : TMain
+        {
+            InitDicIfNotExit();
+            return _propDict.ContainsKey(typeof(T));
+        }
+
         public List<T> GetAll<T>() where T : TMain
         {
             List<T> result = new List<T>();
@@ -76,17 +81,25 @@ namespace Plugins.HabObject.Property
 
         private void MoveToDictFromObject()
         {
+            _propDict = new Dictionary<Type, TMain>();
             foreach (var data in _objectForData.GetComponents<TMain>()) _propDict.Add(data.GetType(), data);
         }
         
         public void CloneComponent<T>(T componentForClone, T componentToClone) where T : Component
         {
-            foreach (var prop in componentForClone.GetType().GetProperties(BindingFlags.Default))
+            foreach (var prop in componentForClone.GetType().GetProperties(BindingFlags.Default | BindingFlags.Public | BindingFlags.NonPublic))
                 prop.SetValue(componentToClone, prop.GetValue(componentForClone), BindingFlags.Default, null, null, null);
-            foreach (var field in componentForClone.GetType().GetFields(BindingFlags.Default))
+            foreach (var field in componentForClone.GetType().GetFields(BindingFlags.Default | BindingFlags.Public | BindingFlags.NonPublic))
                 field.SetValue(componentToClone, field.GetValue(componentForClone), BindingFlags.Default, null, null);
         }
 
+        public void InitDicIfNotExit()
+        {
+            if (_propDict == null)
+                MoveToDictFromObject();
+        }
+
+        
         #endregion
     }
 }

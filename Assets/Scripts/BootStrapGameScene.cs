@@ -18,20 +18,8 @@ public class BootStrapGameScene : MonoBehaviour
     
     private void Awake()
     {
-        DiServices.MainContainer.RegisterSingle<IInput>(new InputKeyboard());
-        StartCoroutine(UpdateInput(DiServices.MainContainer.ResolveSingle<IInput>()));
         DiServices.MainContainer.RegisterSingle<Canvas>(_canvasWithInventoryUi, CanvasInventoryUi);
         DiServices.MainContainer.RegisterSingle<Actor>(_player, PlayerId);
         DiServices.MainContainer.RegisterSingle<Transform>(_parentRoom, ParentRoomId);
-    }
-
-    private IEnumerator UpdateInput(IInput inputForUpdate)
-    {
-        IInput input = inputForUpdate;
-        while (input != null)
-        {
-            input.Update();
-            yield return null;
-        }
     }
 }

@@ -26,7 +26,7 @@ namespace Plugins.HabObject.DIContainer
         [System.Serializable]
         private class ObjectToDi
         {
-            public bool IsUnbind;
+            public bool IsUnbind= true;
             public string id = "";
             public Component Instance;
         }

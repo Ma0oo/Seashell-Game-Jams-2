@@ -46,7 +46,6 @@ namespace Factorys
             foreach (var item in playerData.PathItemsPrefab)
             {
                 Item newItem = SpawnItem(item);
-                _diServices.InjectSingle(newItem.gameObject);
                 
                 if (!inventory.TryAdd(newItem))
                 {
@@ -60,7 +59,7 @@ namespace Factorys
         {
             Debug.Log(item);
             Item itemObject = ((GameObject)Resources.Load(item, typeof(GameObject))).GetComponent<Item>();
-            return Instantiate(itemObject);
+            return _diServices.CreatePrefab(itemObject);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Extension;
 using HabObjects.Actors.Component.Interfaces;
 using HabObjects.Actors.Signals;
@@ -47,6 +48,18 @@ namespace HabObjects.Actors.Component
         }
 
         private void CallEventUpdate() => _actor.BloodSystem.Fire(new InventoryUpdate(_items, this.GetType()));
+
+        public List<Item> GetItem(Func<Item, bool> conditions)
+        {
+            List<Item> result = new List<Item>();
+            foreach (var item in _items)
+            {
+                if(conditions.Invoke(item))
+                    result.Add(item);
+            }
+
+            return result;
+        }
         
         public void Save(DataPlayer data)
         {

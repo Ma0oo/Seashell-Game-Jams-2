@@ -18,6 +18,6 @@ namespace HabObjects.Actors.Component.Player
             _speedPlayer = _actor.ComponentShell.Get<SpeedPlayer>();
         }
 
-        private void FixedUpdate() => _rigidbody2D.velocity = _input.AxisMove.normalized * _speedPlayer.Value;
+        private void FixedUpdate() => _rigidbody2D.velocity = _input.AxisMove * _speedPlayer.Value;
     }
 }

@@ -11,6 +11,9 @@ namespace Services.Interfaces
         event UnityAction InventoryButton;
         event UnityAction MenuButtonClick;
         event UnityAction Intractable;
+        event UnityAction MainAttackClick;
+        event UnityAction MainAttackHold;
+        event UnityAction MainAttackUnclick;
         void Update();
     }
 }

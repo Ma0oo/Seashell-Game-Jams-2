@@ -54,7 +54,7 @@ namespace Infrastructure.ScenesServices.Lobby
         private string GetPathToData() => GetPathProfileDirectory() + "/" + new DataPlayer().Name + ".txt";
 
         private string GetPathProfileDirectory() => _baseDataPath + "/" + _profileProvider.CurrentProfile;
-        
+
         public void SavePlayer(Actor Player)
         {
             DataPlayer data;
