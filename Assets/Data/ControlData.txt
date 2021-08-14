@@ -1,0 +1,11 @@
+{
+  "keyMoveUp": 119,
+  "keyMoveDown": 115,
+  "keyMoveRight": 100,
+  "keyMoveLeft": 97,
+  "keyInteract": 101,
+  "Inventory": 105,
+  "Attack": 323,
+  "Pause": 27,
+  "Name": "ControlData"
+}

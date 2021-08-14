@@ -3,6 +3,7 @@ using Extension;
 using Infrastructure.Data;
 using Infrastructure.Services;
 using Plugins.HabObject.DIContainer;
+using Services.Interfaces;
 using UnityEngine;
 using UnityEngine.Audio;
 
@@ -14,20 +15,26 @@ namespace Infrastructure.ScenesServices.MainMenuPart
         [DI] private ProfileProvider _profileProvider;
         [DI] private ConfigMixerGroup _groups;
         [DI] private AudioMixer _mixer;
+        [DI] private IInput _input;
 
         [DIC]
         private void Init()
         {
             _profileProvider.NewProfileSelected += OnNewProfileSelected;
             _dataProvider.DataUpdated += OnDataUpdate;
+            _input.InitData(_dataProvider.Get<DataControl>());
         }
 
         private void OnDataUpdate(IData obj)
         {
             if(obj is DataSound) SetSound(obj as DataSound);
             else if(obj is GraphicsData) SetGraphic(obj as GraphicsData);
-            else throw new Exception("Unknow data");
+            else if (obj is DataControl) SetControl(obj as DataControl);
+            else if(obj is DataProgressGame) return;
+            else throw new Exception($"Unknow data - {obj.GetType()}");
         }
+
+        private void SetControl(DataControl dataControl) => _input.InitData(dataControl);
 
         private void OnNewProfileSelected()
         {

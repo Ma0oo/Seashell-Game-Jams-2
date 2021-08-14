@@ -1,6 +1,8 @@
-﻿using HabObjects.Actors.Signals;
+﻿using System;
+using HabObjects.Actors.Signals;
 using Mechanics.Interfaces;
 using PhysicShell;
+using Plugins.HabObject;
 using Plugins.HabObject.DIContainer;
 using Services.Interfaces;
 using UnityEngine;
@@ -33,9 +35,19 @@ namespace HabObjects.Actors.Component.Player
 
         private void OnIntractable()
         {
-            if(_shell == null)
+            if (_shell == null)
+            {
+                CircleCollider2D col = _triggerShell.Collider2D as CircleCollider2D;
+                var findedColliders = Physics2D.OverlapCircleAll(transform.position, col != null ? col.radius : 1.25f);
+                foreach (var colT in findedColliders)
+                {
+                    TryChangeShell(colT);
+                }
+                    
+            }
+            if(_shell==null)
                 return;
-            
+
             if (_shell.Item)
             {
                 _pickerUpItem.PickUp(_shell.Item);
@@ -48,16 +60,22 @@ namespace HabObjects.Actors.Component.Player
 
         private void OnEnter(Collider2D other)
         {
-            if (other.TryGetComponent<Mechanics.Interfaces.HabObject>(out var hab))
+            TryChangeShell(other);
+        }
+
+        private void TryChangeShell(Collider2D other)
+        {
+            if (other.TryGetComponent<HabObject>(out var hab))
             {
-                if(CheckAtInterface(hab))
+                if (_shell != null)
+                    _shell.FireSignalUnselectToInteract();
+                if (CheckAtInterface(hab))
                     return;
                 if (hab is Item)
                 {
                     _shell = new ShellItemAndInterectComponent(hab.gameObject, hab as Item, null);
                     _shell.FireSignalSelectToInteract();
                 }
-                
             }
         }
 
@@ -71,7 +89,7 @@ namespace HabObjects.Actors.Component.Player
             }
         }
         
-        private bool CheckAtInterface(Mechanics.Interfaces.HabObject hab)
+        private bool CheckAtInterface(HabObject hab)
         {
             foreach (var component in hab.ComponentShell.GetAll<IInteractbleComponent>())
             {
@@ -85,6 +103,7 @@ namespace HabObjects.Actors.Component.Player
             return false;
         }
         
+        [Serializable]
         private class ShellItemAndInterectComponent
         {
             public GameObject MainObject { get; }

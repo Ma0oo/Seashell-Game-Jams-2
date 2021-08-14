@@ -16,7 +16,7 @@ namespace HabObjects.Actors.Component.Player
         private void OnDropItem(DropThisItem @event)
         {
             @event.Item.transform.position = _actor.transform.position;
-            @event.Item.BloodSystem.Fire(new Droped(_actor));
+            @event.Item.BloodSystem.Fire(new Droped(_actor, @event.Item));
         }
     }
 }

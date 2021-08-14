@@ -1,6 +1,7 @@
 ﻿using Infrastructure.Configs;
 using Infrastructure.GameStateMachines.Interfaces;
 using Infrastructure.ScenesServices.MainMenuPart;
+using Infrastructure.ScenesServices.MainMenuPart.Mono;
 using Infrastructure.ScenesServices.MainMenuPart.Signals;
 using Mechanics;
 using Plugins.HabObject.DIContainer;
@@ -23,7 +24,7 @@ namespace Infrastructure.GameStateMachines.States
         public void Enter()
         {
             RegisterSignal();
-            RegisterDI(new TransiterDataForUnity(),  new ChangerStateMainMenu());
+            RegisterDI(new TransiterDataForUnity(),  new ChangerStateMainMenu(), new InitProviderMainMenu());
             _sceneLoader.Load(_scenes.MainMenu, () => _curtain.Unfade());
         }
 
@@ -44,6 +45,7 @@ namespace Infrastructure.GameStateMachines.States
             _mianDiServices.RemoveSingel<TransiterDataForUnity>();
             _mianDiServices.RemoveSingel<ChangerStateMainMenu>();
             _mianDiServices.RemoveSingel<EventChanel>(EventChanelId);
+            _mianDiServices.RemoveSingel<InitProviderMainMenu>();
         }
 
         private void RegisterSignal()
@@ -52,14 +54,16 @@ namespace Infrastructure.GameStateMachines.States
             _chanelMainMenu.RegisterSignal<WindowAction>();
         }
 
-        private void RegisterDI(TransiterDataForUnity transitDataForUnity, ChangerStateMainMenu changerStateMainMenu)
+        private void RegisterDI(TransiterDataForUnity transitDataForUnity, ChangerStateMainMenu changerStateMainMenu, InitProviderMainMenu initProviderMainMenu)
         {
             _mianDiServices.RegisterSingle(_chanelMainMenu, EventChanelId);
             _mianDiServices.RegisterSingle(transitDataForUnity);
             _mianDiServices.RegisterSingle(changerStateMainMenu);
+            _mianDiServices.RegisterSingle(initProviderMainMenu);
             
             _mianDiServices.InjectSingle(transitDataForUnity);            
             _mianDiServices.InjectSingle(changerStateMainMenu);
+            _mianDiServices.InjectSingle(initProviderMainMenu);
         }
     }
 }

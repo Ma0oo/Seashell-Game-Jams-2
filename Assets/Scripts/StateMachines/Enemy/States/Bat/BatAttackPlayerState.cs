@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace StateMachines.Enemy.States.Bat
 {
-    public class BatAttackPlayerState : EnemyState
+    public class BatAttackPlayerState : State
     {
         [SerializeField] private BatCloseAttackerPlayer batCloseAttackerPlayer;
         

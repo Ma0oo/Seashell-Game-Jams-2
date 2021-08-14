@@ -13,13 +13,15 @@ namespace HabObjects.Actors.Component
 {
     public class InventoryHand : MonoBehaviour, IInventory, ISaveDataPlayer
     {
+        public Item ItemInHand => _currentItem;
+        
         [SerializeField] private Actor _actor;
         
         private Item _currentItem;
 
         private void Awake()
         {
-            _actor.BloodSystem.Track<ActorDeaded>(OnDeadActor);
+            _actor.BloodSystem.Track<ActorHasDead>(OnDeadActor);
             //_actor.BloodSystem.Track<ManualUpdateInventory>(OnManulUpdateInvetory);
         }
 
@@ -29,7 +31,7 @@ namespace HabObjects.Actors.Component
             {
                 _currentItem = item;
                 _actor.BloodSystem.Fire(new InventoryUpdate(new List<Item>(){item}, this.GetType()));
-                item.BloodSystem.Fire(new Picked(_actor));
+                item.BloodSystem.Fire(new Picked(_actor, item));
                 item.BloodSystem.Fire(new ItemInHand());
                 return true;
             }
@@ -57,7 +59,7 @@ namespace HabObjects.Actors.Component
                 _actor.BloodSystem.Fire(new InventoryUpdate(new List<Item>() { }, this.GetType()));
         }
 
-        private void OnDeadActor(ActorDeaded obj) => TryRemove(_currentItem);
+        private void OnDeadActor(ActorHasDead obj) => TryRemove(_currentItem);
         
         public void Save(DataPlayer data)
         {

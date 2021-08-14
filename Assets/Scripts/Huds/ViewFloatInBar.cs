@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Timers;
 using HabObjects;
 using HabObjects.Actors.Signals;
 using Huds.Inventorys;
@@ -29,6 +30,9 @@ namespace Huds
                     _actor.BloodSystem.Track<HealthUpdated>(OnHealthUpdate);
                     _actor.BloodSystem.Fire(new ManualUpdateHealth());
                     break;
+                case ViewThing.Timer:
+                    _actor.BloodSystem.Track<TimerUpdate>(OnTimerUpdate);
+                    break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(targer), targer, null);
             }
@@ -41,17 +45,22 @@ namespace Huds
                 case ViewThing.Health:
                     _actor.BloodSystem.Untrack<HealthUpdated>(OnHealthUpdate);
                     break;
+                case ViewThing.Timer:
+                    _actor.BloodSystem.Untrack<TimerUpdate>(OnTimerUpdate);
+                    break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(target), target, null);
             }
         }
+
+        private void OnTimerUpdate(TimerUpdate obj) => _image.fillAmount = obj.Current / obj.StartValue;
 
         private void OnHealthUpdate(HealthUpdated @event) => _image.fillAmount = @event.Current/@event.Max;
 
 
         private enum ViewThing
         {
-            Health
+            Health, Timer
         }
     }
 }

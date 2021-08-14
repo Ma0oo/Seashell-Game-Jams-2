@@ -45,6 +45,9 @@ namespace Infrastructure.ScenesServices.MainMenuPart.Mono
                 case DataForView.Graphics:
                     Generate<GraphicsData>();
                     break;
+                case DataForView.Control:
+                    Generate<DataControl>();
+                    break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(DataForView), dataEnum, null);
             }
@@ -67,7 +70,8 @@ namespace Infrastructure.ScenesServices.MainMenuPart.Mono
         public enum DataForView
         {
             Sound,
-            Graphics
+            Graphics, 
+            Control
         }
 
         #region SpawnInputFieldsByData

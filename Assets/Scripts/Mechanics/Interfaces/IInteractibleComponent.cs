@@ -1,4 +1,5 @@
 ﻿using System;
+using Plugins.HabObject;
 
 namespace Mechanics.Interfaces
 {

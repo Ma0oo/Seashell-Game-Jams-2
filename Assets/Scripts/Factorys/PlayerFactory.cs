@@ -10,7 +10,7 @@ namespace Factorys
 {
     public class PlayerFactory : MonoBehaviour
     {
-        public Actor Actor { get; private set; }
+        public Actor CurrentActor { get; private set; }
         
         [DI] private DataPlayerProvider _dataProvider;
         [DI] private HudFactory _hudFactory;
@@ -35,8 +35,9 @@ namespace Factorys
         {
             Actor actor = ((GameObject) Resources.Load(playerData.PathPrefabPlayer, typeof(GameObject))).GetComponent<Actor>();
             player = _diServices.CreatePrefab(actor);
-            Actor = player;
+            CurrentActor = player;
             player.transform.position = at;
+            _dataProvider.LoadPlayer(player);
         }
 
         private void CreateItem(Actor player, DataPlayer playerData)
@@ -57,7 +58,6 @@ namespace Factorys
 
         private Item SpawnItem(string item)
         {
-            Debug.Log(item);
             Item itemObject = ((GameObject)Resources.Load(item, typeof(GameObject))).GetComponent<Item>();
             return _diServices.CreatePrefab(itemObject);
         }

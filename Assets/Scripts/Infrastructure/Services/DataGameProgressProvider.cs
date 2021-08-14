@@ -45,6 +45,14 @@ namespace Infrastructure.Services
 
         private string GetPathToData() => GetPathProfileDirectory() + "/" + new DataProgressGame().Name + ".txt";
 
-        private string GetPathProfileDirectory() => _baseDataPath + "/" + _profileProvider.CurrentProfile;
+        private string GetPathProfileDirectory()
+        {
+            string result = _baseDataPath + "/" + _profileProvider.CurrentProfile;
+            if (!Directory.Exists(_baseDataPath))
+                Directory.CreateDirectory(_baseDataPath);
+            if (!Directory.Exists(result))
+                Directory.CreateDirectory(result);
+            return result;
+        }
     }
 }

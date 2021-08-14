@@ -5,7 +5,9 @@ using UnityEngine;
 namespace HabObjects.Actors.Component.Interfaces
 {
     public abstract class HealthAbs : MonoBehaviour, ISaveDataPlayer
-    {
+    { 
+        public abstract float Current { get; }
+        
        public abstract void Damage(float damage);
        public abstract void Recovery(float recovery);
        public abstract void Save(DataPlayer data);

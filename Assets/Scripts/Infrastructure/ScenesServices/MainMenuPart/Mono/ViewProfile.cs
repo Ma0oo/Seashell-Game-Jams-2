@@ -46,7 +46,11 @@ namespace Infrastructure.ScenesServices.MainMenuPart.Mono
 
         private void OnProfileSelectedDeleted(string obj) => UpdateProfileList();
 
-        private void DeleteCurrentProfile() => _profileProvider.Remove(_profileProvider.CurrentProfile);
+        private void DeleteCurrentProfile()
+        {
+            _profileProvider.Remove(_profileProvider.CurrentProfile);
+            _profileProvider.Choise(ProfileProvider.DefaultProfile);
+        }
 
         private void CreateProfile()
         {

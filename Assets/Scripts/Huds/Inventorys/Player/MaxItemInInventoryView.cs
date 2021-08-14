@@ -29,6 +29,10 @@ namespace Huds.Inventorys.Player
             _actor.BloodSystem.Fire(new ManualUpdateInventory());
         }
 
-        private void OnInventoryUpdate(InventoryUpdate obj) => _text.text = $"{obj.Items.Count}/{_inventory.MaxItem}";
+        private void OnInventoryUpdate(InventoryUpdate obj)
+        {
+            if(obj.TypeInventory == typeof(Inventory))
+                _text.text = $"{obj.Items.Count}/{_inventory.MaxItem}";
+        }
     }
 }

@@ -1,4 +1,4 @@
-﻿using Plugins.HabObject.GlobalSystem;
+﻿using Infrastructure.Data;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -7,6 +7,7 @@ namespace Services.Interfaces
     public interface IInput
     {
         Vector2 AxisMove { get; }
+        float DeltaScroll { get; }
         event UnityAction<bool> ChangeMove;
         event UnityAction InventoryButton;
         event UnityAction MenuButtonClick;
@@ -15,5 +16,6 @@ namespace Services.Interfaces
         event UnityAction MainAttackHold;
         event UnityAction MainAttackUnclick;
         void Update();
+        void InitData(DataControl dataControl);
     }
 }

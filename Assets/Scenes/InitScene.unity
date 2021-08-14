@@ -265,8 +265,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Loading...
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 6144abf23b1d5a54dbb4f7c561a0953b, type: 2}
+  m_sharedMaterial: {fileID: 5663824052872992998, guid: 6144abf23b1d5a54dbb4f7c561a0953b, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -290,7 +290,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 146.45
+  m_fontSize: 134.5
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -428,8 +428,8 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: 0
-      outSlope: 0
+      inSlope: 2
+      outSlope: 2
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
@@ -459,8 +459,8 @@ MonoBehaviour:
       inWeight: 0
       outWeight: 0.50350636
     - serializedVersion: 3
-      time: 0.9875081
-      value: -0.018877137
+      time: 1.0041809
+      value: -0.03302002
       inSlope: -2.7569573
       outSlope: -2.7569573
       tangentMode: 0
@@ -470,7 +470,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  _duration: 1.5
+  _duration: 1.2
 --- !u!225 &1821327166
 CanvasGroup:
   m_ObjectHideFlags: 0

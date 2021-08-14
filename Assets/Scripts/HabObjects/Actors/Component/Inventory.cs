@@ -32,7 +32,7 @@ namespace HabObjects.Actors.Component
             if (_items.Count < _maxItem && !_items.Contains(item))
             {
                 _items.Add(item);
-                item.BloodSystem.Fire(new Picked(_actor));
+                item.BloodSystem.Fire(new Picked(_actor, item));
                 CallEventUpdate();
                 return true;
             }

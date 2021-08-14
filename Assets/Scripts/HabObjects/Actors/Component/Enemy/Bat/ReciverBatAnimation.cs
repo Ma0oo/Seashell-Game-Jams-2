@@ -1,5 +1,6 @@
 ﻿using HabObjects.Actors.Signals.Bat;
 using UnityEngine;
+using UnityEngine.AI;
 
 namespace HabObjects.Actors.Component.Enemy.Bat
 {

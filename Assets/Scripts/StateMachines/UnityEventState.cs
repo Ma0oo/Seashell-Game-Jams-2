@@ -4,7 +4,8 @@ using UnityEngine.Events;
 
 namespace StateMachines
 {
-    public class UnityEventState : EnemyState
+    [AddComponentMenu(State.PathGeneral+"EventState")]
+    public class UnityEventState : State
     {
         [SerializeField] private UnityEvent _onEvent;
         [SerializeField] private UnityEvent _offEvent;

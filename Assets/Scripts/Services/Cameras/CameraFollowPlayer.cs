@@ -1,5 +1,6 @@
 ﻿using System;
 using HabObjects;
+using HabObjects.Actors.Component.Player;
 using Infrastructure;
 using Plugins.HabObject.DIContainer;
 using UnityEngine;
@@ -14,10 +15,14 @@ namespace Services.Cameras
         [SerializeField] private Camera _camera;
 
         private const float OffsetZ = -10;
+        private SpeedPlayer _speedPlayer;
+
+        private void Awake() => _speedPlayer = _target.ComponentShell.Get<SpeedPlayer>();
 
         private void LateUpdate() => Move(PositionMove());
 
-        private void Move(Vector3 positionMove) => transform.position = Vector3.MoveTowards(transform.position, positionMove, Time.deltaTime * _speed);
+        private void Move(Vector3 positionMove) =>
+            transform.position = Vector3.MoveTowards(transform.position, positionMove, Time.fixedDeltaTime * (_speedPlayer.Value + _speed));
 
         private Vector3 PositionMove()
         {

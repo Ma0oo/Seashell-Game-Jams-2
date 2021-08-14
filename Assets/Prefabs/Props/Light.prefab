@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7401988297496161542}
   - component: {fileID: 4352852311191683983}
   - component: {fileID: 8641886083478046013}
+  - component: {fileID: 2990101083397995062}
   m_Layer: 0
   m_Name: Light
   m_TagString: Untagged
@@ -110,6 +111,22 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &2990101083397995062
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2046867334186932662}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 048dc4457f41e894aa9236e8b4ff6931, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 1
+  m_Area: 1
+  m_IgnoreFromBuild: 0
+  m_AffectedAgents: ffffffff
 --- !u!1 &5516544349306293310
 GameObject:
   m_ObjectHideFlags: 0

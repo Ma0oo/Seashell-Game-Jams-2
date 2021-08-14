@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace HabObjects
 {
-    public class Door : Mechanics.Interfaces.HabObject
+    public class Door : HabObject
     {
         public override ComponentShell ComponentShell => _componentShell;
         public override GeneralContainer GeneralContainer => _container;

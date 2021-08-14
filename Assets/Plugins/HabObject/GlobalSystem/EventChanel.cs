@@ -1,9 +1,10 @@
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace Plugins.HabObject.GlobalSystem
 {
-    public class EventChanel
+    public class EventChanel : IDisposable 
     {
         private static EventChanel _instance;
         public static EventChanel MainChanel => _instance ?? (_instance = new EventChanel());
@@ -95,9 +96,20 @@ namespace Plugins.HabObject.GlobalSystem
 
             return false;
         }
+
+        public void Dispose()
+        {
+            foreach (var pairTypeDic in _singalsContainer)
+            {
+                foreach (var pairStrReact in pairTypeDic.Value)
+                {
+                    ((IClear)pairStrReact.Value).Clear();
+                }
+            }
+        }
     }
 
-    internal class ReactOnSignal<T>  where  T : class
+    internal class ReactOnSignal<T> : IClear where  T : class
     {
         private event Action<T> Newsletter;
 
@@ -106,5 +118,12 @@ namespace Plugins.HabObject.GlobalSystem
         public void AddListen(Action<T> callback) => Newsletter += callback;
         
         public void RemoveListen(Action<T> callback) => Newsletter -= callback;
+        
+        public void Clear() => Newsletter = (Action<T>) Delegate.RemoveAll(Newsletter, Newsletter);
+    }
+
+    internal interface IClear
+    {
+        void Clear();
     }
 }

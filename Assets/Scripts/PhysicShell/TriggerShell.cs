@@ -5,7 +5,9 @@ namespace PhysicShell
 {
     public class TriggerShell : MonoBehaviour
     {
-        [SerializeField] private Collider2D _collider2D; 
+         public Collider2D Collider2D =>  _collider2D;
+
+         [SerializeField]private Collider2D _collider2D; 
         
         public event Action<Collider2D> Enter;
         public event Action<Collider2D> Stay;

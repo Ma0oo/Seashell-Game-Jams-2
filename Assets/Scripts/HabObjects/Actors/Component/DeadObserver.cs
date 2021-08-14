@@ -24,7 +24,7 @@ namespace HabObjects.Actors.Component
         private IEnumerator DeadDelay()
         {
             yield return new WaitForFixedUpdate();
-            _actor.BloodSystem.Fire(new ActorDeaded(_actor));
+            _actor.BloodSystem.Fire(new ActorHasDead(_actor));
             _onDead?.Invoke();
         }
     }

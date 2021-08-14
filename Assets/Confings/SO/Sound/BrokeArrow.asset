@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06777a710c0a48778b399917e739bb06, type: 3}
+  m_Name: BrokeArrow
+  m_EditorClassIdentifier: 
+  _clip: {fileID: 8300000, guid: 7f6b653a6584fee4691eaa56de0acef0, type: 3}
+  _volume:
+    isRandom: 0
+    _min: 1
+    _max: 1
+  _pitch:
+    _isRandom: 0
+    _min: 1
+    _max: 1
+  _priority: 128
+  _countLoop: 1
+  _group: {fileID: -1298406130980847299, guid: 1699bf3a337483b48b84f01ac6deb844, type: 2}

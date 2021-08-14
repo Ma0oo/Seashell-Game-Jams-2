@@ -109,7 +109,6 @@ namespace Plugins.HabObject.DIContainer
 
             if (!_dictionarySingle[typeof(T)].ContainsKey(id))
                 throw new Exception($"The container does not contain under this ID - Type: {typeof(T)} \\ Id: '{id}'");
-
             return _dictionarySingle[typeof(T)][id] as T;
         }
         
@@ -182,6 +181,9 @@ namespace Plugins.HabObject.DIContainer
 
         public void InjectSingle(Object obj)
         {
+            if(obj==null)
+                return;
+            
             var listFeild = obj.GetType().
                 GetFields(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance).
                 Where(x => CustomAttributeExtensions.GetCustomAttribute<DI>((MemberInfo) x) != null);

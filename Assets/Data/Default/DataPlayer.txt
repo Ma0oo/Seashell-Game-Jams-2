@@ -1,5 +1,5 @@
 {
-  "PathPrefabPlayer": "PlayerArch",
+  "PathPrefabPlayer": "PlayerActor",
   "Force": 8,
   "Agility": 3,
   "Charisma": 2,
@@ -7,14 +7,7 @@
   "Money": 100,
   "Class": 1,
   "PathItemsPrefab": [
-    "Items/Bow",
-    "Items/Arror",
-    "Items/Arror",
-    "Items/Arror",
-    "Items/Arror",
-    "Items/Arror",
-    "Items/Arror",
-    "Items/Arror"
+    "Items/Weapon/Sword"
   ],
   "Health": 20.0,
   "HealthMax": 20.0,

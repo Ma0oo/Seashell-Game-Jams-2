@@ -1,6 +1,7 @@
 ﻿using System;
 using HabObjects.Actors.Signals;
 using Mechanics.Interfaces;
+using Plugins.HabObject;
 using UnityEngine;
 using UnityEngine.Events;
 

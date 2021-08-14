@@ -1,4 +1,5 @@
-﻿using Plugins.HabObject.DIContainer;
+﻿using System;
+using Plugins.HabObject.DIContainer;
 using Services.Interfaces;
 using UnityEngine;
 
@@ -26,6 +27,8 @@ namespace Huds.Inventorys.Player
             _canvasGroup.alpha = ConvertToFloat(state);
             gameObject.SetActive(state);
         }
+
+        private void OnDestroy() => _input.InventoryButton -= OnClickInventoryButton;
 
         private static float ConvertToFloat(bool canvasGroupInteractable) => canvasGroupInteractable ? 1 : 0;
     }

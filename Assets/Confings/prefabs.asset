@@ -13,4 +13,8 @@ MonoBehaviour:
   m_Name: prefabs
   m_EditorClassIdentifier: 
   StartSizePoolAudio: 50
+  PathToMoneyPrefabFolder: Money
+  PathToBottleItem: Items/Bottles
+  PathToAllItem: Items
+  PathToWeaponItem: Items/Weapon
   _sourcePrefab: {fileID: 2273827654701290366, guid: c40e6f6bcc34f7548b37f61815757bcf, type: 3}

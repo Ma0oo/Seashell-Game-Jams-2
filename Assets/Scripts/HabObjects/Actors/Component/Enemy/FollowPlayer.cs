@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using Infrastructure;
 using Plugins.HabObject.DIContainer;
 using UnityEngine;
 using UnityEngine.AI;
@@ -22,7 +23,7 @@ namespace HabObjects.Actors.Component.Enemy
 
         private void OnEnable()
         {
-            _player = DiServices.MainContainer.ResolveSingle<Actor>(BootStrapGameScene.PlayerId);
+            _player = DiServices.MainContainer.ResolveSingle<Actor>(DIConstID.PlayerId);
             if(_player == _actor)
                 throw new Exception("Player controled by mesh agent");
             _actionSetDestination = StartCoroutine(UpdatePosition());

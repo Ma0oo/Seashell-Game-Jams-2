@@ -25,23 +25,16 @@ namespace Infrastructure.ScenesServices.MainMenuPart.Mono
 
         private IEnumerator ReadKeyCode(UnityAction<object> setKode)
         {
-            string keyName = " ";
-            while (keyName == " ")
+            KeyCode keyName = KeyCode.Delete;
+            while (keyName == KeyCode.Delete)
             {
-                if (Input.GetMouseButton(0))
-                    yield break;
-
-                char firstSymbol = Input.inputString.Length > 0 ? Input.inputString.ToUpper()[0] : ' ';
-                
-                if (firstSymbol >= 'A' && firstSymbol <= 'Z' && firstSymbol != ' ')
-                    keyName = firstSymbol.ToString();
-                else if (firstSymbol >= '0' && firstSymbol <= '9' && firstSymbol != ' ')
-                    keyName = "Alpha" + firstSymbol;
-                else if(firstSymbol != ' ')
-                    throw new ArgumentException("Don't know name for this key");
+                foreach(KeyCode KCode in Enum.GetValues(typeof(KeyCode)))
+                    if (Input.GetKeyDown(KCode))
+                        keyName = KCode;
                 yield return null;
             }
-            _newCode = (KeyCode)Enum.Parse(typeof(KeyCode), keyName);
+
+            _newCode = keyName;
             setKode?.Invoke(_newCode);    
             _labelValue.text = _newCode.ToString();
         }

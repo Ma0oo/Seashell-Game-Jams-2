@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using HabObjects.Actors.Signals;
 using HabObjects.Rooms.Signals;
+using MoonSharp.Interpreter;
 using UnityEngine;
 
 namespace HabObjects.Rooms.Component
@@ -13,20 +14,22 @@ namespace HabObjects.Rooms.Component
         
         private void OnEnable()
         {
-            _room.BloodSystem.Track<DungeonMonsterSpawned>(OnDungeonMonsterSpawned);
+            _room.BloodSystem.Track<ActorSpawnedInRoom>(OnDungeonMonsterSpawned);
+            Script s = new Script();
+            
         }
 
-        private void OnDungeonMonsterSpawned(DungeonMonsterSpawned obj)
+        private void OnDungeonMonsterSpawned(ActorSpawnedInRoom obj)
         {
             if(_enemys.Contains(obj.Monster))
                 return;
             _enemys.Add(obj.Monster);
-            obj.Monster.BloodSystem.Track<ActorDeaded>(OnMonsterDead);
+            obj.Monster.BloodSystem.Track<ActorHasDead>(OnMonsterDead);
         }
 
-        private void OnMonsterDead(ActorDeaded obj)
+        private void OnMonsterDead(ActorHasDead obj)
         {
-            obj._actorDead.BloodSystem.Untrack<ActorDeaded>(OnMonsterDead);
+            obj._actorDead.BloodSystem.Untrack<ActorHasDead>(OnMonsterDead);
             if(!_enemys.Contains(obj._actorDead))
                 return;
             _enemys.Remove(obj._actorDead);

@@ -1,5 +1,4 @@
 ﻿using Infrastructure.ScenesServices.MainMenuPart.Attribute;
-using UnityEngine;
 
 namespace Infrastructure.Data
 {

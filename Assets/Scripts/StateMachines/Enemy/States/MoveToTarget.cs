@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace StateMachines.Enemy.States
 {
-    public class MoveToTarget : EnemyState
+    public class MoveToTarget : State
     {
         [SerializeField] private FollowPlayer _followPlayer;
         

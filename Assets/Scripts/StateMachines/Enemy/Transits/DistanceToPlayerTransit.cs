@@ -1,25 +1,22 @@
 ﻿using System;
 using HabObjects;
+using Infrastructure;
 using Plugins.HabObject.DIContainer;
 using UnityEngine;
 
 namespace StateMachines.Enemy.Transits
 {
+    [AddComponentMenu(Transit.PathEnemy+"Distance To Player")]
     public class DistanceToPlayerTransit : Transit
     {
-        public override EnemyState Target => _targetState;
-        
-        [SerializeField] private EnemyState _targetState;
         [SerializeField] private float _distanceTrigger;
         [SerializeField] private bool _inverted;
 
         [Header("Gizmos")] 
         [SerializeField] private Color _colorSphere = Color.red;
         
-        private Actor _player;
+        [DI(DIConstID.PlayerId)]private Actor _player;
         
-        private void Awake() => _player = DiServices.MainContainer.ResolveSingle<Actor>(BootStrapGameScene.PlayerId);
-
         public override bool CanTransit()
         {
             bool result = Vector3.Distance(transform.position, _player.transform.position) < _distanceTrigger;

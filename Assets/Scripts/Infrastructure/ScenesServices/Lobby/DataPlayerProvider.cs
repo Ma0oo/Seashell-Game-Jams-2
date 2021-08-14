@@ -55,13 +55,19 @@ namespace Infrastructure.ScenesServices.Lobby
 
         private string GetPathProfileDirectory() => _baseDataPath + "/" + _profileProvider.CurrentProfile;
 
-        public void SavePlayer(Actor Player)
+        public void SavePlayer(Actor player)
         {
             DataPlayer data;
             GetData(out data);
             data.PathItemsPrefab = new string[0];
-            foreach (var partData in Player.ComponentShell.GetAll<ISaveDataPlayer>()) partData.Save(data);
+            foreach (var partData in player.ComponentShell.GetAll<ISaveDataPlayer>()) partData.Save(data);
             SaveData(data);
+        }
+
+        public void LoadPlayer(Actor player)
+        {
+            GetData(out var data);
+            foreach (var partData in player.ComponentShell.GetAll<ISaveDataPlayer>()) partData.Load(data);
         }
     }
 }

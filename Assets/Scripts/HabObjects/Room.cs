@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace HabObjects
 {
-    public class Room : Mechanics.Interfaces.HabObject
+    public class Room : HabObject
     {
         public override BloodSystem BloodSystem => _bloodSystem != null ? _bloodSystem : _bloodSystem = new BloodSystem();
         public override ComponentShell ComponentShell => _componentShell;

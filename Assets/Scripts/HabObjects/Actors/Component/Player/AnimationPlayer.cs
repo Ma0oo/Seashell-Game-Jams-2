@@ -19,13 +19,13 @@ namespace HabObjects.Actors.Component.Player
         private static readonly int Damage = Animator.StringToHash("Damage");
         private static readonly int Dead = Animator.StringToHash("Dead");
 
-        private void Awake() => _actor.BloodSystem.Track<ActorDeaded>(OnDead);
+        private void Awake() => _actor.BloodSystem.Track<ActorHasDead>(OnDead);
 
         private void OnEnable() => _actor.BloodSystem.Track<FinallyDamage>(DamagePlay);
 
         private void OnDisable() => _actor.BloodSystem.Untrack<FinallyDamage>(DamagePlay);
 
-        private void OnDead(ActorDeaded obj)
+        private void OnDead(ActorHasDead obj)
         {
             Debug.Log("Dead");
             if(_damagePlay!=null)

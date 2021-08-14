@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Plugins.HabObject
 {
@@ -15,16 +16,24 @@ namespace Plugins.HabObject
             GetPublisherByT<TSignal>().Awake(instanceSignal);
         }
         
-        public void Track<TSignal>(Action<TSignal> tracker, Priority priority = Priority.Third) where TSignal : class
+        public void Track<TSignal>(Action<TSignal> tracker) where TSignal : class
         {
             CheckAndFixIntegrityDictionary<TSignal>();
-            GetPublisherByT<TSignal>().AddListen(tracker, priority);
+            GetPublisherByT<TSignal>().AddListen(tracker);
         }
 
-        public void Untrack<TSignal>(Action<TSignal> tracker, Priority priority = Priority.Third) where TSignal : class
+        public void Untrack<TSignal>(Action<TSignal> tracker) where TSignal : class
         {
             CheckAndFixIntegrityDictionary<TSignal>();
-            GetPublisherByT<TSignal>().RemoveListen(tracker, priority);
+            GetPublisherByT<TSignal>().RemoveListen(tracker);
+        }
+
+        public async void Clear()
+        {
+            Task.Run(() =>
+            {
+                foreach (var pair in _dictionaryEvent) ((IClearEvent) pair.Value).Clear();
+            });
         }
 
         private Publisher<TSignal> GetPublisherByT<TSignal>() where TSignal : class 
@@ -39,38 +48,23 @@ namespace Plugins.HabObject
             if(!CheckDictionaryAtHasKeyT<T>())
                 CreatePublisher<T>();
         }
-
-        public enum Priority
+        
+        private class Publisher<T> : IClearEvent where T : class
         {
-            First, Second, Third, Fourth, Fifth 
+            private event Action<T> _action;
+
+            public void AddListen(Action<T> action) => _action += action;
+
+            public void RemoveListen(Action<T> action) => _action -= action;
+
+            public void Awake(T payLoad) => _action?.Invoke(payLoad);
+
+            public void Clear() => _action = (Action<T>)Delegate.RemoveAll(_action, _action);
         }
         
-        private class Publisher<T> where T : class
+        private interface IClearEvent
         {
-            SignalElement<T>[] _signals = new SignalElement<T>[5];
-            
-            public Publisher()
-            {
-                for (int i = 0; i < _signals.Length; i++) _signals[i] = new SignalElement<T>();
-            }
-            
-            public void AddListen(Action<T> action, Priority priority) => _signals[(int) priority].Add(action);
-
-            public void RemoveListen(Action<T> action, Priority priority) => _signals[(int)priority].Remove(action);
-
-            public void Awake(T payLoad)
-            {
-                foreach (var signal in _signals) signal.Awake(payLoad);
-            }
-        }
-        
-        private class SignalElement<T> where T : class
-        {
-            private event Action<T> Event;
-
-            public void Awake(T payLoad) => Event?.Invoke(payLoad);
-            public void Add(Action<T> action) => Event += action;
-            public void Remove(Action<T> action) => Event -= action;
+            void Clear();
         }
     }
 }

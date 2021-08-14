@@ -16,10 +16,14 @@ namespace Factorys
 
         public Hud Crete<T>() where T : Hud
         {
-            Hud hud = Instantiate(GetHud<T>());
+            Hud template = GetHud<T>();
+            template.gameObject.SetActive(false);
+            Hud hud = Instantiate(template);
+            template.gameObject.SetActive(true);
             if(typeof(T) == typeof(PlayerHud))
                 _main.RegisterSingle<Canvas>(hud.GetComponent<Canvas>(), IdPlayerCanvas);
             _main.InjectSingle(hud.gameObject);
+            hud.gameObject.SetActive(true);
             return hud;
         }
 
@@ -30,7 +34,11 @@ namespace Factorys
                 if (prefab.GetType() == typeof(T))
                     return prefab;
             }
-
+            foreach (var prefab in _prefabs)
+            {
+                if (prefab is T)
+                    return prefab;
+            }
             throw null;
         }
 

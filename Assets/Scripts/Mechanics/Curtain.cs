@@ -73,7 +73,7 @@ namespace Mechanics
                 yield return null;
                 
             }
-            _canvasGroup.alpha = Mathf.Round(curve.Evaluate(2));
+            _canvasGroup.alpha = Mathf.Round(curve.Evaluate(1));
             callback?.Invoke();
         }
     }

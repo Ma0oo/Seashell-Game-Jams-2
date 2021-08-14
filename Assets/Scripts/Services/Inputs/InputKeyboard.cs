@@ -1,4 +1,5 @@
-﻿using Services.Interfaces;
+﻿using Infrastructure.Data;
+using Services.Interfaces;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -9,7 +10,12 @@ namespace Services.Inputs
         private const string VerticalAxis = "Vertical";
         private const string HorizontalAxis = "Horizontal";
         
-        public Vector2 AxisMove => new Vector2(Input.GetAxis(HorizontalAxis), Input.GetAxis(VerticalAxis));
+        public Vector2 AxisMove => 
+            new Vector2(
+                GetValueByKey(_dataControl.keyMoveLeft, _dataControl.keyMoveRight),
+                GetValueByKey(_dataControl.keyMoveDown, _dataControl.keyMoveUp));
+
+        public float DeltaScroll => Input.mouseScrollDelta.y;
         public event UnityAction<bool> ChangeMove;
         public event UnityAction InventoryButton;
         public event UnityAction MenuButtonClick;
@@ -19,6 +25,7 @@ namespace Services.Inputs
         public event UnityAction MainAttackUnclick;
 
         private bool isMove = false;
+        private DataControl _dataControl ;
 
         public InputKeyboard()
         {
@@ -27,6 +34,9 @@ namespace Services.Inputs
         
         public void Update()
         {
+            if(_dataControl == null)
+                return;
+
             ChangeMoveEvent();
             IntractableEvent();
             InventoryEvent();
@@ -34,19 +44,39 @@ namespace Services.Inputs
             MainAttackClickEvents();
         }
 
+        private float GetValueByKey(KeyCode negativeKey, KeyCode positiveKey)
+        {
+            if (Input.GetKey(negativeKey) && Input.GetKey(positiveKey)) 
+                return 0;
+            else if (Input.GetKey(negativeKey))
+                return -1;
+            else if (Input.GetKey(positiveKey))
+                return 1;
+            else
+                return 0;
+        }
+
+        public void InitData(DataControl dataControl)
+        {
+            if (dataControl == null)
+                throw null;
+            
+            _dataControl = dataControl;
+        }
+
         private void MainAttackClickEvents()
         {
-            if(Input.GetKeyDown(KeyCode.Mouse0))
+            if(Input.GetKeyDown(_dataControl.Attack))
                 MainAttackClick?.Invoke();
-            if(Input.GetKey(KeyCode.Mouse0))
+            if(Input.GetKey(_dataControl.Attack))
                 MainAttackHold?.Invoke();
-            if(Input.GetKeyUp(KeyCode.Mouse0))
+            if(Input.GetKeyUp(_dataControl.Attack))
                 MainAttackUnclick?.Invoke();
         }
 
         private void MenuEvent()
         {
-            if (Input.GetKeyDown(KeyCode.Escape))
+            if (Input.GetKeyDown(_dataControl.Pause))
                 MenuButtonClick?.Invoke();
         }
 
@@ -59,12 +89,12 @@ namespace Services.Inputs
 
         private void IntractableEvent()
         {
-            if (Input.GetKeyDown(KeyCode.E)) Intractable?.Invoke();
+            if (Input.GetKeyDown(_dataControl.keyInteract)) Intractable?.Invoke();
         }
 
         private void InventoryEvent()
         {
-            if (Input.GetKeyDown(KeyCode.I)) InventoryButton?.Invoke();
+            if (Input.GetKeyDown(_dataControl.Inventory)) InventoryButton?.Invoke();
         }
     }
 }

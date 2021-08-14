@@ -17,7 +17,7 @@ MonoBehaviour:
   _id: MainMenuMusic
   _volume:
     isRandom: 0
-    _min: 1
+    _min: 0.85
     _max: 1
   _pitch:
     _isRandom: 0

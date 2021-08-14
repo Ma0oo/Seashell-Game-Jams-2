@@ -1,13 +1,16 @@
 ﻿using System;
 using HabObjects.Actors.Data;
 using HabObjects.Items.Signals;
+using Plugins.HabObject.Customizable.Attributs;
 using UnityEngine;
 
 namespace HabObjects.Items.Components
 {
+    [CustomizableComponent("Компоненты поворота вокруг актёра", 0)]
     public class RotatedAroundActor : MonoBehaviour
     {
         [SerializeField] private Item _item;
+        [TRangeFloat("Смешение поворота", -360, 360, new float[]{1,5,10,25,50,100})]
         [SerializeField] private float _offsetRotate;
         
         private Actor _actor;

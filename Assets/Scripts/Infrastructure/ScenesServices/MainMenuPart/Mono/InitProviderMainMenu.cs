@@ -5,11 +5,12 @@ using UnityEngine;
 
 namespace Infrastructure.ScenesServices.MainMenuPart.Mono
 {
-    public class InitProviderMainMenu : MonoBehaviour
+    public class InitProviderMainMenu
     {
         [DI] private DataProvider _data;
         [DI] private ProfileProvider _profile;
 
+        [DIC]
         private void Start()
         {
             InitProfile();
@@ -23,6 +24,8 @@ namespace Infrastructure.ScenesServices.MainMenuPart.Mono
         {
             _data.InitIfNotExist<DataSound>();
             _data.InitIfNotExist<GraphicsData>();
+            _data.InitIfNotExist<DataControl>();
+            _data.InitIfNotExist<DataProgressGame>();
         }
 
         private void InitProfile()

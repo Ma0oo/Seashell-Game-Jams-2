@@ -237,6 +237,7 @@ GameObject:
   - component: {fileID: 5095979419663852220}
   - component: {fileID: 2833713497741572013}
   - component: {fileID: 974192404}
+  - component: {fileID: 45739018886432532}
   m_Layer: 0
   m_Name: OtherComponent
   m_TagString: Untagged
@@ -301,6 +302,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _actor: {fileID: 2181801036270737136}
+  _delay: 0.1
 --- !u!114 &2833713497741572013
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -379,6 +381,21 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &45739018886432532
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 974192398}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a9cd41f401df45a1b672270896ad77e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _actor: {fileID: 2181801036270737136}
+  _damage: {fileID: 9175593151411231208, guid: 57c2035378f2ab84f8721bf015706b05, type: 3}
+  _dead: {fileID: 1379532423012557109, guid: 0e36abb486f8e7b44ba6bda3d0e09b8a, type: 3}
 --- !u!1 &2181801035934646492
 GameObject:
   m_ObjectHideFlags: 0
@@ -545,7 +562,8 @@ GameObject:
   - component: {fileID: 2181801036270737138}
   - component: {fileID: 2181801036270737143}
   - component: {fileID: 2181801036270737142}
-  m_Layer: 0
+  - component: {fileID: 13648601468486316}
+  m_Layer: 8
   m_Name: PlayerArch
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -734,6 +752,21 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &13648601468486316
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2181801036270737150}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55f0cca260334220a0a2ad235a5f014a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _actor: {fileID: 2181801036270737136}
+  _soundDamage: {fileID: 11400000, guid: f87906b48bf7bab4e9f528a5e5902a1a, type: 2}
+  _soundDead: {fileID: 11400000, guid: 20bb8b153f4ce7b43ac8da6bab15c479, type: 2}
 --- !u!1 &2181801037215552705
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,6 +1,8 @@
-﻿using HabObjects.Actors.Signals;
+﻿using System;
+using HabObjects.Actors.Signals;
 using HabObjects.Actors.Signals.Bat;
 using UnityEngine;
+using UnityEngine.AI;
 
 namespace HabObjects.Actors.Component.Enemy.Bat
 {
@@ -8,7 +10,9 @@ namespace HabObjects.Actors.Component.Enemy.Bat
     {
         [SerializeField] private Actor _actor;
         [SerializeField] private Animator _animator;
-        
+        [SerializeField] private SpriteRenderer _spriteRenderer;
+        [SerializeField] private NavMeshAgent _agent;
+
         private static readonly int Dead = Animator.StringToHash("Dead");
         private static readonly int Damaged = Animator.StringToHash("Damaged");
         private static readonly int CloseAttack = Animator.StringToHash("CloseAttack");
@@ -19,19 +23,22 @@ namespace HabObjects.Actors.Component.Enemy.Bat
 
         private void OnEnable()
         {
-            _actor.BloodSystem.Track<ActorDeaded>(OnDead);
+            _actor.BloodSystem.Track<ActorHasDead>(OnDead);
             _actor.BloodSystem.Track<FinallyDamage>(OnDamaged);
             _actor.BloodSystem.Track<StartBatCloserAttackPlayer>(OnCloseAttack);
         }
 
-        private void OnCloseAttack(StartBatCloserAttackPlayer obj) => _animator.SetTrigger(CloseAttack);
-
         private void OnDisable()
         {
-            _actor.BloodSystem.Untrack<ActorDeaded>(OnDead);
+            _actor.BloodSystem.Untrack<ActorHasDead>(OnDead);
             _actor.BloodSystem.Untrack<FinallyDamage>(OnDamaged);
             _actor.BloodSystem.Untrack<StartBatCloserAttackPlayer>(OnCloseAttack);
         }
+
+        private void Update() => _spriteRenderer.flipX = _agent.velocity.x < 0;
+        
+        private void OnCloseAttack(StartBatCloserAttackPlayer obj) => _animator.SetTrigger(CloseAttack);
+
 
         private void OnDamaged(FinallyDamage e)
         {
@@ -39,7 +46,7 @@ namespace HabObjects.Actors.Component.Enemy.Bat
                 _animator.SetTrigger(Damaged);
         }
 
-        private void OnDead(ActorDeaded e)
+        private void OnDead(ActorHasDead e)
         {
             _animator.SetTrigger(Dead);
             enabled = false;

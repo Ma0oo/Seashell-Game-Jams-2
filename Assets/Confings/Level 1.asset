@@ -12,4 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 203ac939f20d4233b1a1e7570de1f055, type: 3}
   m_Name: Level 1
   m_EditorClassIdentifier: 
-  NameLevel: Level 1
+  SafeRoomEach: 3
+  PlayRooms:
+  - {fileID: 5378604903319991453, guid: fc18bb45ca726f34ba2a75cbc43db6b3, type: 3}
+  EnemyOnLevel:
+  - {fileID: 11400000, guid: aedbfbceea6d72e4e9e625f8d134a58f, type: 2}
+  - {fileID: 11400000, guid: 9b1029d34cf21894f93d0c955679e907, type: 2}
+  _safeRoom: {fileID: 5378604903319991453, guid: c25efb0e3a9ee8948ba2af8010e0b825, type: 3}
+  _nameLevel: Level 1

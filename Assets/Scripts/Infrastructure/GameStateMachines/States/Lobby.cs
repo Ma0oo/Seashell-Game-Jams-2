@@ -25,7 +25,7 @@ namespace Infrastructure.GameStateMachines.States
         public void Enter()
         {
             RegisterSignal();
-            RegisterDI(new DataPlayerProvider());
+            RegisterDI(new DataPlayerProvider(), new FactoryItem());
             _sceneLoader.Load(_sceneSet.Lobby, _curtain.Unfade);   
         }
 
@@ -42,6 +42,7 @@ namespace Infrastructure.GameStateMachines.States
             _mainDiServices.RemoveSingel<EventChanel>(ChanelLobbyId);
             _mainDiServices.RemoveSingel<Actor>(DIConstID.PlayerId);
             _mainDiServices.RemoveSingel<Canvas>(HudFactory.IdPlayerCanvas);
+            _mainDiServices.RemoveSingel<FactoryItem>();
         }
 
         private void UnregisterSignal()
@@ -51,12 +52,14 @@ namespace Infrastructure.GameStateMachines.States
             _chanelLobby.UnregisterSignal<LobbyFinishEnter>();
         }
 
-        private void RegisterDI(DataPlayerProvider dataPlayerProvider)
+        private void RegisterDI(DataPlayerProvider dataPlayerProvider, FactoryItem factoryItem)
         {
             _mainDiServices.RegisterSingle(dataPlayerProvider);
             _mainDiServices.RegisterSingle(_chanelLobby, ChanelLobbyId);
+            _mainDiServices.RegisterSingle(factoryItem);
             
             _mainDiServices.InjectSingle(dataPlayerProvider);
+            _mainDiServices.InjectSingle(factoryItem);
         }
         
         private void RegisterSignal()
